@@ -1,7 +1,8 @@
 const fs = require('fs')
 const Koa = require('koa')
 const path = require('path')
-const http = require('./http')
+const http1 = require('./http')
+const http = require('http')
 const https = require('https')
 const socket = require('./socket')
 const ipaddrs = require('./ipaddrs')
@@ -16,20 +17,20 @@ app.use(koaStatic(path.join(__dirname, '../docs')))
 app.use(koaParser())
 
 // http请求方式建立连接
-http(app)
+http1(app)
 
-const server = https.createServer(
-  {
-    key: fs.readFileSync(path.join(__dirname, '../tls/server.key')), // tls文件路径
-    cert: fs.readFileSync(path.join(__dirname, '../tls/server.crt')) // tls文件路径
-  },
+const server = http.createServer(
+  // {
+  //   key: fs.readFileSync(path.join(__dirname, '../tls/server.key')), // tls文件路径
+  //   cert: fs.readFileSync(path.join(__dirname, '../tls/server.crt')) // tls文件路径
+  // },
   app.callback()
 )
 
 // socket方式建立连接
 socket(server)
 
-server.listen(443, () => {
+server.listen(9070, () => {
   console.log('Server running on:')
-  console.log(`\n${ipaddrs.map(url => `    https://${url}`).join('\n')}\n`)
+  console.log(`\n${ipaddrs.map(url => `    http://${url}:9070`).join('\n')}\n`)
 })
