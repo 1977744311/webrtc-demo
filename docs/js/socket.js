@@ -45,6 +45,9 @@ function createRTC(stream, id) {
       { url: 'stun:stun.voipstunt.com' },
       { url: 'stun:stun.voxgratia.org' },
       { url: 'stun:stun.xten.com' },
+      { url: 'stun:stun.qq.com' },
+      { url: 'stun:stun.miwifi.com' },
+      { url: 'stun:stun.syncthing.net' },
       {
         url: 'turn:numb.viagenie.ca',
         credential: 'muazkh',
